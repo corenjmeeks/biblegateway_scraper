@@ -1,0 +1,27 @@
+def biblescraper(url):
+    import requests
+    from bs4 import BeautifulSoup
+    import re
+
+    r = requests.get(url)
+    r_html = r.text
+    soup = BeautifulSoup(r_html)
+
+    a = [i.text for i in soup.findAll(class_="text")]
+    a.pop()
+    a = a[1:]
+
+    b = "".join(a)
+    
+    p = re.compile(r"\d+")
+    pattern = re.compile(r"\xa0")
+
+    c = p.sub("", b)
+    # d variable splits first space into it's own item, remove with d = d[1:]
+    d = pattern.split(c)
+    d = d[1:]
+
+    e = [i for i in range(1,len(d) + 1)]
+    bible = dict(zip(e,d))
+
+    return bible
