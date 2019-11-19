@@ -1,0 +1,20 @@
+def whole_book(book, chapters):
+	count = 1
+	url = "https://www.biblegateway.com/passage/?search=" + str(book) + "+" + str(count) + "&version=NIV"
+	whole_book = []
+
+	for i in range(chapters + 1):
+		whole_book.append(biblescraper(url))
+		count += 1
+		url = "https://www.biblegateway.com/passage/?search=" + str(book) + "+" + str(count) + "&version=NIV"
+
+	chapter_title = []
+	count = 1
+
+	for i in range(chapters + 1):
+		chapter_title.append("Chapter " + str(count))
+		count += 1
+
+	whole_book_and_chapters = dict(zip(chapter_title, whole_book))
+	
+	return whole_book_and_chapters
